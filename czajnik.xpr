@@ -60,6 +60,9 @@
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sources_1/new/BuzzerHandler.v">
+      <File Path="$PSRCDIR/sources_1/new/ClockDivider.v">
+      <File Path="$PSRCDIR/sources_1/new/Timer.v">
+      <File Path="$PSRCDIR/sources_1/new/Bin2Bcd.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -67,6 +70,14 @@
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/DisplayController.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/ButtonHandler.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -88,6 +99,10 @@
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_1/new/testBuzzerHandler.v">
+      <File Path="$PSRCDIR/sim_1/new/testButtonHandler.v">
+      <File Path="$PSRCDIR/sim_1/new/testClockDivider.v">
+      <File Path="$PSRCDIR/sim_1/new/testTimer.v">
+      <File Path="$PSRCDIR/sim_1/new/testBin2Bcd.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
