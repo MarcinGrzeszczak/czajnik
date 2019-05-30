@@ -44,8 +44,7 @@ module TemperatureHandler(
         heaterEnable <= 0;
         isStarted <= 0;
     end
-    
-    if( (isStarted | heatingMaintain) & !reset) begin
+    else if( (isStarted | heatingMaintain) & !reset) begin
         
         if(tempratureSensorData < settedTemperature) begin
             heaterEnable <= 1;

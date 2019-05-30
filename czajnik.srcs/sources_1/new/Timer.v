@@ -22,6 +22,7 @@
 
 module Timer #(seconds = 2)(
         input clk_1Hz,
+        input enable,
         input reset,
         output reg done = 0
     );
@@ -33,15 +34,12 @@ module Timer #(seconds = 2)(
             done <= 0;
             counter <= 0;
         end
-        
-        if(done == 0) begin
+        else if(done == 0) begin
             if(counter == seconds) begin 
                 done <= 1;
             end
             
             counter <= counter + 1;
-        end
-        
-        
+        end      
     end
 endmodule
