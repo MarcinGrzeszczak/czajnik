@@ -38,24 +38,7 @@ module top(
     
     ClockDivider #(1) clockDivider_1Hz (clk_100Mhz, clk_1Hz);
     
-    Timer #(2) timer_2s(clk_1Hz, , ,startHeating);
-    /*
-      input clk_1Hz,
-        input enable,
-        input reset,
-        output reg done = 0
-    */
-    ButtonHandler buttonHandler(increaseHeatButton, heatMaintainButton, startHeating, , ,settedTemperature, heatMaintain, stop);
-    /*
-      input increaseHeatButton,
-        input heatMaintainButton,
-        input changeButtonSetting,
-        output reg enableTimer = 0,
-        output reg resetTimer = 0,
-        output reg[6:0] settedTemperature = 0,
-        output reg heatMaintain = 0,
-        output reg stop = 0
-    */
+    
     Display display(clk_100Mhz,settedTemperature,displayNumber,ledsOutput);
     
     TemperatureHandler temperatureHandler(clk_100Mhz, ,startHeating, heatMaintain, settedTemperature, temperatureSensorData, ,enableHeater);
