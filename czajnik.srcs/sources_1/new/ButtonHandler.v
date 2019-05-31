@@ -21,6 +21,7 @@
 
 
 module ButtonHandler(
+        input clk_100Mhz,
         input increaseHeatButton,
         input heatMaintainButton,
         input changeButtonSetting,
@@ -30,23 +31,21 @@ module ButtonHandler(
        );
     
     localparam temperatureDelta = 7'b0011001; //25
-    reg isButtonFunctionChanged = 0;
-     
-    always @(posedge heatMaintainButton) heatMaintain <= ~heatMaintain;
-   
-    always @(changeButtonSetting) isButtonFunctionChanged <= changeButtonSetting;
+    
+    reg enableTimer = 0;
+    reg resetTimer = 0;
+    reg isButtonChanged = 0;
     
     always @(posedge increaseHeatButton) begin
-        if(isButtonFunctionChanged) begin
-            stop <= 1;
+        if(!enableTimer & !isButtonChanged)
+            enableTimer <= 1;
+        
+        if(!isButtonChanged) begin
+            resetTimer <= 1;
+            
         end
-        else begin
-            stop <= 0;
-       
-            if(settedTemperature[6:0] >= 7'b1100100)
-                settedTemperature = 0;
-            settedTemperature = settedTemperature + temperatureDelta;
-       end
+                   
     end
+    
     
 endmodule
