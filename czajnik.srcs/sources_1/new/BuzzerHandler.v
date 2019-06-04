@@ -43,7 +43,7 @@ module BuzzerHandler #(beepsAmount = 3) (
         end
     end
     
-    always @(posedge clk) begin 
+    always @(clk) begin 
         if(isStarted & counter < beepsAmount)
             counter <= counter + 1;
     end

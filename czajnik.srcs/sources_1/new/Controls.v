@@ -25,56 +25,46 @@ module Controls(
         input increaseHeatButton,
         input heatMaintainButton,
         input reset,
-        output displayTemperature,
+        output displayRequired,
         output [6:0] settedTemperature,
-        output reg heatMaintain = 0,
         output start
     );
-    reg enableTimer = 0;
-
-    wire timerDone;
-    wire changeButtonSetting;
-    wire heatMaintainDone;
-    wire resetMaintainTimer = reset | heatMaintainDone;
+    
+    wire changeButtonSignal;
+    wire enableTimer;
+    wire resetTimer;
+    wire heatMaintainSignal;
+    wire finishedHeatngMeaintain;
     wire enableHeatMaintainTimer;
-    and(enableHeatMaintainTimer, timerDone, heatMaintain);
+    wire startSignal;
+    wire resetAll;
     
-    buf(start, changeButtonSetting,timerDone);
-    and(displayTemperature, enableTimer, ~timerDone);
+    buf resetTimerBuf(resetTimer, increaseHeatButton);
+    buf changeButtonSignalBuf(changeButtonSignal, startSignal);
+    buf(start, startSignal);
     
-    always @(posedge heatMaintainButton) heatMaintain <= ~heatMaintain;
+    buf(resetAll, finishedHeatngMeaintain);
+    bufif0(resetAll, reset, heatMaintainSignal);
     
-    always @(posedge resetMaintainTimer) heatMaintain <= 0;
+    and (enableHeatMaintainTimer, reset, heatMaintainSignal);
+    and (displayRequired,enableTimer, ~startSignal);
     
-    always @(posedge increaseHeatButton) begin
-        if(!changeButtonSetting)
-            enableTimer <= 1;
-        else
-            enableTimer <= 0;
-    end
-    
-    always @(posedge reset or negedge start)
-        if(reset | !start) begin
-            enableTimer <= 0;
-        end
-     
-    ButtonHandler buttonHandler(increaseHeatButton, heatMaintainButton, changeButtonSetting, settedTemperature);//, heatMaintain);
-   /*
-        input increaseHeatButton,
-        input heatMaintainButton,
+    EnableHeatMaintain enableHeatMaintain(heatMaintainButton, resetAll, heatMaintainSignal);
+    ButtonHandler increaseHeatButtonController(increaseHeatButton, changeButtonSignal, resetAll, settedTemperature, enableTimer);
+    /*
+      input increaseHeatButton,
         input changeButtonSetting,
         input reset,
-        output reg[6:0] settedTemperature = 0,
-        output heatMaintain 
+        output[6:0] settedTemperature,
+        output reg enable =0
     */
-   
-   
-    Timer #(2) timer_2s(clk_1Hz, enableTimer, increaseHeatButton, timerDone);
+    
+    Timer #(2) enableTimer_2s(clk_1Hz, enableTimer, resetTimer, startSignal);
+    Timer #(2) heatMaintainTimer(clk_1Hz, enableHeatMaintainTimer, ,finishedHeatngMeaintain);
     /*
-       input clk_1Hz,
+           input clk_1Hz,
         input enable,
         input reset,
         output reg done = 0
     */
-    Timer #(5) timer_1h(clk_1Hz, , resetMaintainTimer, heatMaintainDone);
 endmodule

@@ -35,12 +35,11 @@ module top(
     wire clk_1Hz_Controls;
     wire clk_1Hz_Buzzer;
     wire [6:0] settedTemperature;
-    wire heatMaintain;
     wire startHeating; 
     wire resetControls;
-    wire controlsDisplayTemp;
+    wire controlRequiredDisplay;
     wire enableBuzzerHandlerWire;
-    wire [6:0] displayTemp = controlsDisplayTemp ? settedTemperature : temperatureSensorData;
+    wire [6:0] displayTemp = controlRequiredDisplay ? settedTemperature : temperatureSensorData;
     
     buf b1(clk_1Hz_Controls, clk_1Hz_Buzzer, clk_1Hz);
     
@@ -49,19 +48,18 @@ module top(
     
     Display display(clk_100Mhz,displayTemp, displayNumber,ledsOutput);
     
-    Controls controls(clk_1Hz_Controls, increaseHeatButton, heatMaintainButton, resetControls, controlsDisplayTemp, settedTemperature, heatMaintain, startHeating);
+    Controls controls(clk_1Hz_Controls, increaseHeatButton, heatMaintainButton, resetControls, controlRequiredDisplay, settedTemperature, startHeating);
     /*
-         input clk_1Hz,
+        input clk_1Hz,
         input increaseHeatButton,
         input heatMaintainButton,
         input reset,
-        output displayTemperature,
+        output displayRequired,
         output [6:0] settedTemperature,
-        output heatMaintain,
         output start
     */
     
-    TemperatureHandler temperatureHandler(clk_100Mhz, startHeating, heatMaintain, settedTemperature, temperatureSensorData, resetControls ,enableBuzzerHandlerWire ,enableHeater);
+    TemperatureHandler temperatureHandler(clk_100Mhz, startHeating, settedTemperature, temperatureSensorData, resetControls ,enableBuzzerHandlerWire ,enableHeater);
     /*
         input clk,
         input enable,

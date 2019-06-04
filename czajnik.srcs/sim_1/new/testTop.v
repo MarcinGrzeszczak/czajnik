@@ -35,16 +35,13 @@ wire [6:0] ledsOutput;
 
 initial begin
     #100000000 increaseHeatButton = 0;
-    #100000000 increaseHeatButton = 0;
     #1 increaseHeatButton = 1;
     #1 heatMaintainButton = 1;
-    #100000000 increaseHeatButton = 0;
     #100000000 heatMaintainButton = 0;
+    #1 increaseHeatButton = 0;
     //#1000000000increaseHeatButton = 0;
     //#1000000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #100000000 increaseHeatButton = 0;
-    
+    //#1 increaseHeatButton = 1;
     #100000000 increaseHeatButton = 0;
     #100000000 increaseHeatButton = 0;
     /*
@@ -67,7 +64,7 @@ always @(posedge clk_100Mhz) begin
     if(enableHeater)
        #50000000 temperatureSensorData = temperatureSensorData + tempDelta;
     else if ( temperatureSensorData > 0)
-       #500000000 temperatureSensorData = temperatureSensorData - tempDelta;     
+       #50000000 temperatureSensorData = temperatureSensorData - tempDelta;     
  end
  
 top top1(clk_100Mhz, increaseHeatButton, heatMaintainButton, temperatureSensorData, enableHeater, enableBuzzer,displayNumber, ledsOutput);

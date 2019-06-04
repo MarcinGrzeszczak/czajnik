@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 01.06.2019 15:12:19
+// Create Date: 04.06.2019 19:05:21
 // Design Name: 
-// Module Name: FdNeg
+// Module Name: EnableHeatMaintain
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,12 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module FdNeg(
-        input c,
-        input d,
-        output reg q
+module EnableHeatMaintain(
+        input switchSignal,
+        input reset,
+        output reg enable = 0
     );
-    
-    always @(posedge c)
-        q <= d;
+      
+    always @(posedge switchSignal or posedge reset)
+        if(reset)
+            enable <= 0;
+        else
+            enable <= ~enable;
+        
 endmodule

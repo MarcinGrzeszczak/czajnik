@@ -22,25 +22,24 @@
 
 module ButtonHandler(
         input increaseHeatButton,
-        input heatMaintainButton,
         input changeButtonSetting,
-        output reg[6:0] settedTemperature = 0
-        //output heatMaintain 
+        input reset,
+        output[6:0] settedTemperature,
+        output reg enable =0
        );
-    
-    localparam temperatureDelta = 7'b0011001; //25
-    //wire heatMaintainNegation;
-    //Fd heatMaintainFd(heatMaintainButton, ~heatMaintain, heatMaintain);
-
-    always @(posedge increaseHeatButton) begin
-         if(!changeButtonSetting) begin
-            if(settedTemperature[6:0] >= 7'b1100100)
-                settedTemperature = 0;
-          
-            settedTemperature = settedTemperature + temperatureDelta;
-       end
-       else
-            settedTemperature = 0;
-    end
-    
+       
+       wire[6:0] currentTemperature;
+       localparam temperatureDelta = 7'b0011001; //25
+       localparam maxTemeprature = 7'b1100100; //100
+       assign settedTemperature = currentTemperature;
+       
+       IncreaseTemperature increaseTemp(increaseHeatButton, reset, temperatureDelta, maxTemeprature, currentTemperature);
+       
+       always @(currentTemperature[6:0])
+          if(currentTemperature[6:0] == 0 | changeButtonSetting)
+            enable <= 0;
+          else
+            enable <= 1;
+       
+        
 endmodule

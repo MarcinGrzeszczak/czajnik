@@ -23,11 +23,10 @@
 module testButtonHandler;
 
  reg increaseHeatButton = 0;
- reg heatMaintainButton = 0;
  reg changeButtonSetting = 0;
+ reg reset = 0;
  wire [6:0] settedTemperature;
- wire heatMaintain;
- wire stop;
+ wire enable;
  
  initial begin
  
@@ -54,20 +53,15 @@ module testButtonHandler;
   #5 increaseHeatButton = 1;
   #1  increaseHeatButton = 0;
   
-  #5 heatMaintainButton = 1;
-  #1 heatMaintainButton = 0;
-  
-  #10 heatMaintainButton = 1;
-  #1  heatMaintainButton = 0;
  end
  
- ButtonHandler buttonHandler(increaseHeatButton, heatMaintainButton, changeButtonSetting, settedTemperature, heatMaintain, stop);
- /*
-  input increaseHeatButton,
-        input heatMaintainButton,
+ ButtonHandler buttonHandler(increaseHeatButton,changeButtonSetting, reset, settedTemperature, enable);
+   /*
+        input increaseHeatButton,
         input changeButtonSetting,
-        output reg[6:0] settedTemperature = 0,
-        output reg heatMaintain = 0,
-        output reg stop = 0
- */
+        input reset,
+        output[6:0] settedTemperature,
+        output reg enable =0
+   */
+   
 endmodule

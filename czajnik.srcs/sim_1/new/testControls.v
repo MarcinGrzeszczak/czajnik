@@ -26,8 +26,8 @@ reg clk_1Hz =0;
 reg increaseHeatButton = 0;
 reg heatMaintainButton = 0;
 reg reset = 0;
-wire [6:0] settedTemperature;
-wire heatMaintain;
+wire [6:0] settedTemperature;;
+wire displayRequired;
 wire start;
 
 initial begin 
@@ -35,38 +35,28 @@ initial begin
     #1000000000 increaseHeatButton = 0;
     #1000000000 increaseHeatButton = 0;
     #1 increaseHeatButton = 1;
-    #1000000000increaseHeatButton = 0;
-    #1000000000 increaseHeatButton = 0;
-    //#1000000000increaseHeatButton = 0;
-    //#1000000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #1000000000increaseHeatButton = 0;
+    #500000000 increaseHeatButton = 0;
+    #1 heatMaintainButton = 1;
+    #500000000 heatMaintainButton = 0;
     
-    #1000000000increaseHeatButton = 0;
     #1000000000 increaseHeatButton = 0;
-    #1000000000increaseHeatButton = 0;
     #1000000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #1000000000increaseHeatButton = 0;
     #1000000000 increaseHeatButton = 0;
-    #1000000000increaseHeatButton = 0;
     #1000000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #1000000000increaseHeatButton = 0;
-        
+    #1 reset = 1;
 end
 
 always
      #500000000 clk_1Hz = ~clk_1Hz;
 
-Controls controls(clk_1Hz, increaseHeatButton, heatMaintainButton, reset, settedTemperature, heatMaintain, start);
+Controls controls(clk_1Hz, increaseHeatButton, heatMaintainButton, reset, displayRequired, settedTemperature, start);
 /*
- input clk_1Hz,
+        input clk_1Hz,
         input increaseHeatButton,
         input heatMaintainButton,
         input reset,
+        output displayRequired,
         output [6:0] settedTemperature,
-        output heatMaintain,
         output start
 */
 
