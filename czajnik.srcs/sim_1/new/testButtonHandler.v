@@ -62,5 +62,12 @@ module testButtonHandler;
  end
  
  ButtonHandler buttonHandler(increaseHeatButton, heatMaintainButton, changeButtonSetting, settedTemperature, heatMaintain, stop);
- 
+ /*
+  input increaseHeatButton,
+        input heatMaintainButton,
+        input changeButtonSetting,
+        output reg[6:0] settedTemperature = 0,
+        output reg heatMaintain = 0,
+        output reg stop = 0
+ */
 endmodule

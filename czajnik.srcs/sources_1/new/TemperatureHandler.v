@@ -22,43 +22,40 @@
 
 module TemperatureHandler(
         input clk,
-        input reset,
-        input start,
+        input enable,
         input heatingMaintain,
         input[6:0] settedTemperature,
         input[6:0] tempratureSensorData,
-        output[6:0] currentTemperature,
+        output reg finishedHeating = 0,
         output reg buzzerEnable = 0,
         output reg heaterEnable = 0
     );
     
-    assign currentTemperature = tempratureSensorData;
-    reg isStarted = 0;
+    reg finished = 0;
     
-    always @(posedge start) isStarted <=1;
-    
-    always @(posedge clk, posedge reset) begin
-    
-    if(reset) begin
-        buzzerEnable <= 0;
-        heaterEnable <= 0;
-        isStarted <= 0;
+    always @(posedge clk) begin
+        if(!heatingMaintain & finished)
+                finishedHeating <= finished;
     end
-    else if( (isStarted | heatingMaintain) & !reset) begin
-        
-        if(tempratureSensorData < settedTemperature) begin
-            heaterEnable <= 1;
-        end  
-        
-        if(tempratureSensorData >= settedTemperature) begin
-            isStarted <= 0;
-            heaterEnable <= 0;
-            buzzerEnable <= 1;
+    
+    always @(posedge clk) begin
+        if(buzzerEnable)
+            buzzerEnable <= 0;
+         
+        if(enable) begin
+            if(tempratureSensorData < settedTemperature) begin
+                heaterEnable <= 1;
+             end  
+    
+            if(tempratureSensorData >= settedTemperature ) begin
+                heaterEnable <= 0;
+                
+                if(!finished) begin
+                    buzzerEnable <= 1;
+                    finished <=1;
+                end
+            end   
         end
-        
-              
-    end
-    
     end
     
 endmodule

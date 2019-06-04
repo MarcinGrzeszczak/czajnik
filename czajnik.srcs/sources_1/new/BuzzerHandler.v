@@ -28,7 +28,6 @@ module BuzzerHandler #(beepsAmount = 3) (
     
     reg isStarted = 0;
     integer counter = 0;
-    
     always @(posedge start) isStarted <= 1;
     
     always @(clk) begin

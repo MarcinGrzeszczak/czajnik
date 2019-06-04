@@ -25,21 +25,28 @@ module testTemperatureHandler;
 localparam tempDelta = 7'b0000001;
 
 reg clk = 0;
-reg reset = 0;
-reg start = 0;
+reg enable = 0;
 reg heatingMaintain = 1;
 reg[6:0] settedTemperature = 0;
 reg[6:0] tempratureSensorData = 0;
-wire[6:0] currentTemperature = 0;
 wire buzzerEnable;
 wire heaterEnable;
+wire finishedHeating;
 
-TemperatureHandler tempHandler(clk,reset,start,heatingMaintain, settedTemperature, tempratureSensorData, currentTemperature, buzzerEnable, heaterEnable);
-
+TemperatureHandler tempHandler(clk, enable, heatingMaintain, settedTemperature, tempratureSensorData, finishedHeating, buzzerEnable, heaterEnable);
+/*
+         input clk,
+        input enable,
+        input heatingMaintain,
+        input[6:0] settedTemperature,
+        input[6:0] tempratureSensorData,
+        output reg finishedHeating,
+        output reg buzzerEnable = 0,
+        output reg heaterEnable = 0
+*/
 initial begin
     settedTemperature = 7'b1001011;
-    #40 start = 1;
-    #1000 reset = 1;
+    #40 enable = 1;
 end
 
 always @(posedge clk) begin

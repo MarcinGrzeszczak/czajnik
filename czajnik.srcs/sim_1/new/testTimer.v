@@ -24,20 +24,37 @@ module testTimer;
     
     reg clk_1Hz = 0;
     reg reset = 0;
+    reg enable = 0;
     wire done;
     
     initial begin
         #1000000000 reset = 0;
         #1000000000 reset = 0;
+        #1 enable = 1;
+        #1000000000 reset = 0;
+        #1000000000 reset = 0;
+        //#1 reset = 1;
+        #1000000000 reset = 0;
+        #1000000000 reset = 0;
+        #1000000000 reset = 0;
+        #1 enable = 0;
+        #1000000000 reset = 0;
+        #1000000000 reset = 0;
+        #1000000000 reset = 0;
+        //#1 reset = 1; 
         #1000000000 reset = 0;
         
-        #1 reset = 1;
-        #1000000000 reset = 0;
     end
     
     always
         #500000000 clk_1Hz = ~clk_1Hz;
         
-    Timer #(2) timer(clk_1Hz,reset,done);
+    Timer #(2) timer(clk_1Hz,enable,reset,done);
+    /*
+      input clk_1Hz,
+        input enable,
+        input reset,
+        output reg done = 0
+    */
     
 endmodule

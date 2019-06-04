@@ -29,16 +29,18 @@ module Timer #(seconds = 2)(
     
     integer counter = 0;
     
-    always @(negedge clk_1Hz or posedge reset) begin
-        if(reset) begin
+    always @(posedge reset or negedge enable) begin
+        if(reset | !enable) begin
             done <= 0;
             counter <= 0;
         end
-        else if(done == 0) begin
-            if(counter == seconds) begin 
+    end
+    
+    always @(negedge clk_1Hz) begin
+        if(done == 0 & enable) begin
+            if(counter == seconds -1) begin 
                 done <= 1;
             end
-            
             counter <= counter + 1;
         end      
     end
