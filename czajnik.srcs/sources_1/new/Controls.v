@@ -59,8 +59,8 @@ module Controls(
         output reg enable =0
     */
     
-    Timer #(2) enableTimer_2s(clk_1Hz, enableTimer, resetTimer, startSignal);
-    Timer #(2) heatMaintainTimer(clk_1Hz, enableHeatMaintainTimer, ,finishedHeatngMeaintain);
+    SecondsTimer #(2) enableTimer_2s(clk_1Hz, enableTimer, resetTimer, startSignal);
+    SecondsTimer #(2) heatMaintainTimer(clk_1Hz, enableHeatMaintainTimer, ,finishedHeatngMeaintain);
     /*
            input clk_1Hz,
         input enable,

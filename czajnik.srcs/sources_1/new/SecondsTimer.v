@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Timer #(seconds = 2)(
+module SecondsTimer #(seconds = 2)(
         input clk_1Hz,
         input enable,
         input reset,

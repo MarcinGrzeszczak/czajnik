@@ -49,7 +49,7 @@ module testTimer;
     always
         #500000000 clk_1Hz = ~clk_1Hz;
         
-    Timer #(2) timer(clk_1Hz,enable,reset,done);
+    SecondsTimer #(2) timer(clk_1Hz,enable,reset,done);
     /*
       input clk_1Hz,
         input enable,
