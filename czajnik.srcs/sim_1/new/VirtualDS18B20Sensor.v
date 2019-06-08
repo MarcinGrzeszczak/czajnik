@@ -76,7 +76,7 @@ module VirtualDS18B20Sensor(
         reg in_CRC;
        
         begin
-            for(i=0;i<7;i=i+1) begin
+            for(i=0;i<8;i=i+1) begin
               in_CRC=data[i]^CRC[0];
               CRC ={in_CRC,CRC[7],CRC[6],CRC[5],CRC[4]^in_CRC,CRC[3]^in_CRC,CRC[2],CRC[1]};
             end
@@ -197,8 +197,8 @@ module VirtualDS18B20Sensor(
         4'd8: begin
            resetRead <= 1; 
            enableWrite <=1;
-           crcCalc(temperature[15:8]);
            if(writeDone && writing2byte) begin
+                crcCalc(writeData);
                 enableWrite<=0;         
                 st <= 4'd10;
            end
@@ -209,6 +209,7 @@ module VirtualDS18B20Sensor(
         
         end
         4'd9: begin
+            crcCalc(writeData);
             writing2byte <= 1;
             writeData <= temperature[7:0];
             st<= 4'd8;   
@@ -220,7 +221,7 @@ module VirtualDS18B20Sensor(
            
            if(writeDone) begin
                 byteCounter <= byteCounter + 1;
-                crcCalc(temperature[15:8]);
+                crcCalc(writeData);
                 enableWrite <= 0;
            end
            
