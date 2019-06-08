@@ -57,12 +57,38 @@ module VirtualDS18B20Sensor(
     wire resetReadWire = resetRead & reset;
     
     reg [15:0] temperature= 16'b0000011111010000;
-    reg [7:0] temperatureConversionDone = 8'b00000001;
     
-    reg writing2byte;
+    
     assign enableTimerWire = enableTimer | enableTimerRead | enableTimerWrite;
     assign timerDataWire = timerData | timerDataRead | timerDataWrite;
     assign BUS_OUT = busOut & busOutWrite & busOutRead;
+    
+    wire c;
+    reg [2:0] byteCounter = 0;
+    reg writing2byte;
+    
+    reg [7:0] temperatureConversionDone = 8'b00000001;
+    reg [7:0] emptyByte = 8'b11111111;
+    reg [7:0]CRC;
+    
+    task crcCalc(input [7:0] data);
+        integer i;
+        reg in_CRC;
+       
+        begin
+            for(i=0;i<7;i=i+1) begin
+              in_CRC=data[i]^CRC[0];
+              CRC ={in_CRC,CRC[7],CRC[6],CRC[5],CRC[4]^in_CRC,CRC[3]^in_CRC,CRC[2],CRC[1]};
+            end
+            
+         //crcCalc = CRC;
+        end    
+    endtask
+    
+//assign c=crcCalc(temperature[15:8]);
+//assign tx_bit2=crcCalc(temperature[7:0]);
+    
+
            
     TIMER owTimer(timerDataWire ,enableTimerWire, CLK_1MHZ, timerDone);
      /*
@@ -106,7 +132,7 @@ module VirtualDS18B20Sensor(
         case (st)
         4'd0: begin
          resetRead <= 1;
-        
+            CRC <= 8'b00000000;
             timerData <=0;
             enableTimer <=0;
             enableWrite<=0;
@@ -171,9 +197,10 @@ module VirtualDS18B20Sensor(
         4'd8: begin
            resetRead <= 1; 
            enableWrite <=1;
+           crcCalc(temperature[15:8]);
            if(writeDone && writing2byte) begin
-                enableWrite<=0;
-                st <= 4'd0;
+                enableWrite<=0;         
+                st <= 4'd10;
            end
            else  if(writeDone) begin
                 enableWrite<=0;
@@ -186,7 +213,32 @@ module VirtualDS18B20Sensor(
             writeData <= temperature[7:0];
             st<= 4'd8;   
         end
-        endcase         
+        
+         4'd10: begin
+           writeData <= emptyByte;
+           enableWrite <=1;
+           
+           if(writeDone) begin
+                byteCounter <= byteCounter + 1;
+                crcCalc(temperature[15:8]);
+                enableWrite <= 0;
+           end
+           
+           if(writeDone & byteCounter == 3'b101)
+                st<=4'd11;
+         end
+         4'd11: begin
+            byteCounter <= 0;
+            writeData <= CRC;
+            enableWrite <=1;
+            if(writeDone) begin
+                enableWrite<=0;
+                st <= 4'd0;
+            end    
+        end
+        endcase
+        
+                 
     end
 
 endmodule
