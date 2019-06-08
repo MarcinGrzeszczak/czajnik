@@ -115,6 +115,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/FD.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/new/IncreaseTemperature.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -131,6 +138,51 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/TemperatureHandler.v">
         <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Verilog Hajduk/ds18b20.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Pobrane/Laboratorium Przyk┼Вady/Verilog Hajduk/ds18b20.v"/>
+          <Attr Name="ImportTime" Val="1482159830"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Verilog Hajduk/ow_read.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Pobrane/Laboratorium Przyk┼Вady/Verilog Hajduk/ow_read.v"/>
+          <Attr Name="ImportTime" Val="1482159822"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Verilog Hajduk/ow_reset.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Pobrane/Laboratorium Przyk┼Вady/Verilog Hajduk/ow_reset.v"/>
+          <Attr Name="ImportTime" Val="1482159818"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Verilog Hajduk/ow_write.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Pobrane/Laboratorium Przyk┼Вady/Verilog Hajduk/ow_write.v"/>
+          <Attr Name="ImportTime" Val="1482159826"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/Verilog Hajduk/timer.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../Pobrane/Laboratorium Przyk┼Вady/Verilog Hajduk/timer.v"/>
+          <Attr Name="ImportTime" Val="1482159816"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

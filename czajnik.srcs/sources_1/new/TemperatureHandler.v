@@ -23,36 +23,65 @@
 module TemperatureHandler(
         input clk,
         input enable,
+        input temperatureReady,
         input[6:0] settedTemperature,
         input[6:0] tempratureSensorData,
+        output reg comparingFinished,
         output reg finished = 0,
         output reg buzzerEnable = 0,
         output reg heaterEnable = 0
     );
     
-    always @(posedge clk) begin
-        if(buzzerEnable)
-            buzzerEnable <= 0;
-         
-        if(enable) begin
-            if(tempratureSensorData < settedTemperature) begin
-                heaterEnable <= 1;
-             end  
+    reg [2:0]st;
     
-            if(tempratureSensorData >= settedTemperature ) begin
-                heaterEnable <= 0;
-                
-                if(!finished) begin
-                    buzzerEnable <= 1;
-                    finished <=1;
-                end
-            end   
-        end
+    always @(posedge clk) begin
+        if(enable)
+            st <= 3'd1;
         else begin
-            finished <= 0;
-            buzzerEnable <=0;
-            heaterEnable <= 0;
+            st<= 0;
+            heaterEnable <=0;
         end
     end
     
+    always @(posedge clk) begin
+        case (st)
+            3'd1: begin
+                comparingFinished <=0;
+                buzzerEnable <=0;
+                if(temperatureReady)
+                    st<= 3'd2;
+            end
+            
+            3'd2: begin
+                if(tempratureSensorData < settedTemperature) begin
+                    heaterEnable <= 1;
+                    st<=3'd3;
+                end  
+                else begin
+                    heaterEnable <= 0;
+                    st<=3'd4;
+                end
+            end
+            
+            3'd3: begin
+                comparingFinished <=1;
+                st<=3'd1;
+            end
+            
+            3'd4: begin
+                  if(finished)
+                    st<=3'd1;
+                  else
+                    st<=3'd5;
+            end
+            
+            3'd5: begin
+                 buzzerEnable <= 1;
+                 finished <=1;
+                 st <= 3'd1;
+            end
+                
+        endcase
+    end
+        
 endmodule
