@@ -35,7 +35,7 @@ module top(
     wire clk_1MHz;
     wire [6:0] settedTemperature;
     
-    wire reset;
+    wire resetDS18B20;
     wire BUS_IN;
     wire BUS_OUT;
     wire ACK_reading;
@@ -56,7 +56,8 @@ module top(
     
     Display display(clk_100MHz,displayTemp, displayNumber,ledsOutput);
     
-    DS18B20 t_controller(clk_100MHz, clk_1MHz, reset, BUS_IN, ACK_reading, BUS_OUT, ,RDY_reading, currentTemperature[15:8], currentTemperature[7:0]);
+    DS18B20 t_controller(clk_100MHz, clk_1MHz, resetDS18B20, BUS_IN, ACK_reading, BUS_OUT, ,RDY_reading, currentTemperature[15:8], currentTemperature[7:0]);
+    EnableThermometer enableThermometer(clk_100MHz, startComparing, resetDS18B20);
     /*
     input CLK,
     input CLK_1MHZ,
