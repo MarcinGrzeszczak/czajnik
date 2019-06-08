@@ -50,6 +50,8 @@ module top(
     wire enableBuzzerHandlerWire;
     wire [6:0] displayTemp = controlRequiredDisplay ? settedTemperature : savedTemperature;
     
+    bufif0 (BUS_OW,1'b0,BUS_OUT);
+    assign BUS_IN = BUS_OW;
     
     ClockDivider #(1) clockDivider_1Hz (clk_100MHz, clk_1Hz);
     ClockDivider #(1000000) clockDivider_1Mhz(clk_100MHz, clk_1MHz);
