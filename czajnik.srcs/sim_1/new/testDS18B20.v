@@ -27,12 +27,13 @@ reg RST;
 reg ACK;
 wire BUS_IN;
 wire BUS_OUT;
-
+reg [15:0] temperature = 0;
 
 wire OW_RST_STAT;
 wire RDY;
 wire[7:0] BYTE0;
 wire[7:0] BYTE1;
+wire checkTemperature;
 
 initial begin
    
@@ -51,30 +52,20 @@ always
 always
     #500 CLK_1MHZ = ~CLK_1MHZ;
 
-/*
-integer counter = 0;
+always @(posedge RDY)
+    #100000 ACK <= 1;
 
-always @(negedge CLK_1MHZ) begin
-    if(~BUS_OUT) counter <= counter + 1;
-    else begin
-        
-        if(counter >= 480) begin
-            #15000 BUS_IN = 1;
-            #15000 BUS_IN = 0;
-            #100000 BUS_IN = 1;
-        end
-        counter <= 0;
-    end
-    
-         
-end
-  */
+always @(posedge checkTemperature)
+    temperature <= temperature + 16'd20; 
 
-VirtualDS18B20Sensor sensor(CLK_1MHZ, RST,BUS_OUT, BUS_IN);
+VirtualDS18B20Sensor sensor(CLK_1MHZ, RST, temperature, BUS_OUT, BUS_IN, checkTemperature);
 /*
- input CLK_1MHZ,
+   input CLK_1MHZ,
+         input reset,
+         input[15:0] temperature,
         input BUS_IN,
-        output BUS_OUT
+        output BUS_OUT,
+        output reg checkTemperature
 */    
 
 DS18B20 ds(CLK,CLK_1MHZ,RST,BUS_IN,ACK,BUS_OUT, OW_RST_STAT,RDY,BYTE0,BYTE1);

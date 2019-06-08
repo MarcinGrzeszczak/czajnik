@@ -23,8 +23,10 @@
 module VirtualDS18B20Sensor(
         input CLK_1MHZ,
          input reset,
+         input[15:0] temperature,
         input BUS_IN,
-        output BUS_OUT
+        output BUS_OUT,
+        output reg checkTemperature
     );
     
     integer  counter = 0;
@@ -56,7 +58,7 @@ module VirtualDS18B20Sensor(
     reg resetRead = 1;
     wire resetReadWire = resetRead & reset;
     
-    reg [15:0] temperature= 16'b0000011111010000;
+    //reg [15:0] temperature= 16'b0000011111010000;
     
     
     assign enableTimerWire = enableTimer | enableTimerRead | enableTimerWrite;
@@ -80,16 +82,9 @@ module VirtualDS18B20Sensor(
               in_CRC=data[i]^CRC[0];
               CRC ={in_CRC,CRC[7],CRC[6],CRC[5],CRC[4]^in_CRC,CRC[3]^in_CRC,CRC[2],CRC[1]};
             end
-            
-         //crcCalc = CRC;
         end    
     endtask
-    
-//assign c=crcCalc(temperature[15:8]);
-//assign tx_bit2=crcCalc(temperature[7:0]);
-    
-
-           
+             
     TIMER owTimer(timerDataWire ,enableTimerWire, CLK_1MHZ, timerDone);
      /*
     input [6:0] DATA,
@@ -132,6 +127,7 @@ module VirtualDS18B20Sensor(
         case (st)
         4'd0: begin
          resetRead <= 1;
+            checkTemperature <= 0; 
             CRC <= 8'b00000000;
             timerData <=0;
             enableTimer <=0;
@@ -179,7 +175,8 @@ module VirtualDS18B20Sensor(
             enableRead <= 1;
             if(readDone) begin
                 case(readData)
-                  8'h44: begin 
+                  8'h44: begin
+                        checkTemperature <= 1; 
                         writeData <= temperatureConversionDone;
                         enableRead <= 0;
                         resetRead <= 0;
