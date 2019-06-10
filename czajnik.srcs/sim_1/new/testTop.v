@@ -55,26 +55,15 @@ initial begin
     #100000 increaseHeatButton = 0;
     #1 increaseHeatButton = 1;
     #100000 increaseHeatButton = 0;
-    /*
+    
+    #100000 increaseHeatButton = 0;
+    #1 increaseHeatButton = 1;
+    #100000 increaseHeatButton = 0;
+    
+    #100000 heatMaintainButton = 0;
     #1 heatMaintainButton = 1;
     #100000 heatMaintainButton = 0;
-    #1 increaseHeatButton = 0;
-    //#1000000000increaseHeatButton = 0;
-    //#1000000000 increaseHeatButton = 0;
-    //#1 increaseHeatButton = 1;
-    #100000000 increaseHeatButton = 0;
-    #100000000 increaseHeatButton = 0;
-    /*
-    //#100000000 increaseHeatButton = 0;
-    #100000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #100000000 increaseHeatButton = 0;
-    #100000000 increaseHeatButton = 0;
-    //#100000000 increaseHeatButton = 0;
-    #100000000 increaseHeatButton = 0;
-    #1 increaseHeatButton = 1;
-    #1000000000increaseHeatButton = 0;
-    */
+    
 end
 
 always

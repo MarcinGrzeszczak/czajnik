@@ -51,10 +51,12 @@ module top(
     wire controlRequiredDisplay;
     wire enableBuzzerHandlerWire;
     wire [6:0] displayTemp = controlRequiredDisplay ? settedTemperature : savedTemperature;
+    
    assign reset = resetDS18B20 & RESET_OW;
    bufif0(BUS_OW,1'b0,BUS_OUT);
    assign BUS_IN = BUS_OW === 1'bZ ? 1'b1 : 1'b0;
    assign reset_therm = reset; 
+   
     ClockDivider #(1) clockDivider_1Hz (clk_100MHz, clk_1Hz);
     ClockDivider #(1000000) clockDivider_1Mhz(clk_100MHz, clk_1MHz);
     
@@ -74,7 +76,7 @@ module top(
     output reg [7:0] BYTE0,
     output reg [7:0] BYTE1
     */
-    FD tempFd (currentTemperature[11:3], RDY_reading, savedTemperature);
+    FD tempFd (currentTemperature[10:4], RDY_reading, savedTemperature);
     Controls controls(clk_1Hz, increaseHeatButton, heatMaintainButton, resetControls, controlRequiredDisplay, settedTemperature, startComparing);
     /*
         input clk_1Hz,

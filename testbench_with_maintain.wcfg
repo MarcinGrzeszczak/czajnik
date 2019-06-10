@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="testTop_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="testTop" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="97023201160000fs"></ZoomStartTime>
+      <ZoomEndTime time="9002023201160001fs"></ZoomEndTime>
+      <Cursor1Time time="4092023201160000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="252"></NameColumnWidth>
+      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="30" />
+   <wvobject type="logic" fp_name="/testTop/clk_100Mhz">
+      <obj_property name="ElementShortName">clk_100Mhz</obj_property>
+      <obj_property name="ObjectShortName">clk_100Mhz</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/CLK_1MHZ">
+      <obj_property name="ElementShortName">CLK_1MHZ</obj_property>
+      <obj_property name="ObjectShortName">CLK_1MHZ</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/increaseHeatButton">
+      <obj_property name="ElementShortName">increaseHeatButton</obj_property>
+      <obj_property name="ObjectShortName">increaseHeatButton</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/heatMaintainButton">
+      <obj_property name="ElementShortName">heatMaintainButton</obj_property>
+      <obj_property name="ObjectShortName">heatMaintainButton</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/temperatureSensorData">
+      <obj_property name="ElementShortName">temperatureSensorData[6:0]</obj_property>
+      <obj_property name="ObjectShortName">temperatureSensorData[6:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/enableHeater">
+      <obj_property name="ElementShortName">enableHeater</obj_property>
+      <obj_property name="ObjectShortName">enableHeater</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/enableBuzzer">
+      <obj_property name="ElementShortName">enableBuzzer</obj_property>
+      <obj_property name="ObjectShortName">enableBuzzer</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/displayNumber">
+      <obj_property name="ElementShortName">displayNumber[2:0]</obj_property>
+      <obj_property name="ObjectShortName">displayNumber[2:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/ledsOutput">
+      <obj_property name="ElementShortName">ledsOutput[6:0]</obj_property>
+      <obj_property name="ObjectShortName">ledsOutput[6:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/reset_therm">
+      <obj_property name="ElementShortName">reset_therm</obj_property>
+      <obj_property name="ObjectShortName">reset_therm</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/checkTemperature">
+      <obj_property name="ElementShortName">checkTemperature</obj_property>
+      <obj_property name="ObjectShortName">checkTemperature</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/temperature">
+      <obj_property name="ElementShortName">temperature[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temperature[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/BUS_OW">
+      <obj_property name="ElementShortName">BUS_OW</obj_property>
+      <obj_property name="ObjectShortName">BUS_OW</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/RST_OW">
+      <obj_property name="ElementShortName">RST_OW</obj_property>
+      <obj_property name="ObjectShortName">RST_OW</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/BUS_IN">
+      <obj_property name="ElementShortName">BUS_IN</obj_property>
+      <obj_property name="ObjectShortName">BUS_IN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/BUS_OUT">
+      <obj_property name="ElementShortName">BUS_OUT</obj_property>
+      <obj_property name="ObjectShortName">BUS_OUT</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/RDY_reading">
+      <obj_property name="ElementShortName">RDY_reading</obj_property>
+      <obj_property name="ObjectShortName">RDY_reading</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/ACK_reading">
+      <obj_property name="ElementShortName">ACK_reading</obj_property>
+      <obj_property name="ObjectShortName">ACK_reading</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/resetDS18B20">
+      <obj_property name="ElementShortName">resetDS18B20</obj_property>
+      <obj_property name="ObjectShortName">resetDS18B20</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/tempDelta">
+      <obj_property name="ElementShortName">tempDelta[6:0]</obj_property>
+      <obj_property name="ObjectShortName">tempDelta[6:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/top1/savedTemperature">
+      <obj_property name="ElementShortName">savedTemperature[6:0]</obj_property>
+      <obj_property name="ObjectShortName">savedTemperature[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/top1/currentTemperature">
+      <obj_property name="ElementShortName">currentTemperature[15:0]</obj_property>
+      <obj_property name="ObjectShortName">currentTemperature[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/top1/temperatureHandler/st">
+      <obj_property name="ElementShortName">st[2:0]</obj_property>
+      <obj_property name="ObjectShortName">st[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/temperatureHandler/finished">
+      <obj_property name="ElementShortName">finished</obj_property>
+      <obj_property name="ObjectShortName">finished</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/temperatureHandler/comparingFinished">
+      <obj_property name="ElementShortName">comparingFinished</obj_property>
+      <obj_property name="ObjectShortName">comparingFinished</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/testTop/top1/temperatureHandler/settedTemperature">
+      <obj_property name="ElementShortName">settedTemperature[6:0]</obj_property>
+      <obj_property name="ObjectShortName">settedTemperature[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/controls/enableHeatMaintainTimer">
+      <obj_property name="ElementShortName">enableHeatMaintainTimer</obj_property>
+      <obj_property name="ObjectShortName">enableHeatMaintainTimer</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/controls/heatMaintainSignal">
+      <obj_property name="ElementShortName">heatMaintainSignal</obj_property>
+      <obj_property name="ObjectShortName">heatMaintainSignal</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/testTop/top1/controls/start">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+</wave_config>

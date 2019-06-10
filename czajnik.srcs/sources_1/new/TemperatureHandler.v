@@ -40,6 +40,7 @@ module TemperatureHandler(
         else begin
             st<= 0;
             heaterEnable <=0;
+            finished <=0;
         end
     end
     
@@ -57,7 +58,7 @@ module TemperatureHandler(
                     heaterEnable <= 1;
                     st<=3'd3;
                 end  
-                else begin
+                else if(tempratureSensorData >= settedTemperature)  begin
                     heaterEnable <= 0;
                     st<=3'd4;
                 end
@@ -69,6 +70,7 @@ module TemperatureHandler(
             end
             
             3'd4: begin
+                  comparingFinished <=1;
                   if(finished)
                     st<=3'd1;
                   else
