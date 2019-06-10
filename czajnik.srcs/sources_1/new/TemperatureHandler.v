@@ -26,7 +26,7 @@ module TemperatureHandler(
         input temperatureReady,
         input[6:0] settedTemperature,
         input[6:0] tempratureSensorData,
-        output reg comparingFinished,
+        output reg comparingFinished=0,
         output reg finished = 0,
         output reg buzzerEnable = 0,
         output reg heaterEnable = 0

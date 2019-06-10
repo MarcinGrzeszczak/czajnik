@@ -23,13 +23,19 @@
 module EnableThermometer(
         input clk,
         input trigger,
-        output reg start
+        output reg start = 1
     );
     
-    always @(posedge clk or posedge trigger)
-        if(trigger)
-            start <= 0;
-        else
-            start <= 1;
+    reg isTriggered = 0;
+    
+    always @(posedge trigger)
+            isTriggered <= 1;
             
+    always @(posedge clk)
+            if(isTriggered) begin
+                start <=0;
+                isTriggered <= 0;
+            end
+            else
+                start <= 1;
 endmodule

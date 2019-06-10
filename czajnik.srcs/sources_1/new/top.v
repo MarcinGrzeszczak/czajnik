@@ -25,6 +25,8 @@ module top(
       input increaseHeatButton,
       input heatMaintainButton,
       inout BUS_OW,
+      input RESET_OW,
+      output reset_therm,
       output enableHeater,
       output enableBuzzer,
       output [2:0] displayNumber,
@@ -43,23 +45,23 @@ module top(
     
     wire [15:0] currentTemperature;
     wire [6:0] savedTemperature;
-      
+    wire reset;  
     wire startComparing; 
     wire resetControls;
     wire controlRequiredDisplay;
     wire enableBuzzerHandlerWire;
     wire [6:0] displayTemp = controlRequiredDisplay ? settedTemperature : savedTemperature;
-    
-    bufif0 (BUS_OW,1'b0,BUS_OUT);
-    assign BUS_IN = BUS_OW;
-    
+   assign reset = resetDS18B20 & RESET_OW;
+   bufif0(BUS_OW,1'b0,BUS_OUT);
+   assign BUS_IN = BUS_OW === 1'bZ ? 1'b1 : 1'b0;
+   assign reset_therm = reset; 
     ClockDivider #(1) clockDivider_1Hz (clk_100MHz, clk_1Hz);
     ClockDivider #(1000000) clockDivider_1Mhz(clk_100MHz, clk_1MHz);
     
     Display display(clk_100MHz,displayTemp, displayNumber,ledsOutput);
     
-    DS18B20 t_controller(clk_100MHz, clk_1MHz, resetDS18B20, BUS_IN, ACK_reading, BUS_OUT, ,RDY_reading, currentTemperature[15:8], currentTemperature[7:0]);
-    EnableThermometer enableThermometer(clk_100MHz, startComparing, resetDS18B20);
+    DS18B20 t_controller(clk_100MHz, clk_1MHz, reset, BUS_IN, , BUS_OUT, , RDY_reading, currentTemperature[15:8], currentTemperature[7:0]);
+    EnableThermometer enableThermometer(clk_100MHz, ACK_reading, resetDS18B20);
     /*
     input CLK,
     input CLK_1MHZ,
